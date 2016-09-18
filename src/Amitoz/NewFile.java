@@ -4,7 +4,7 @@ public class NewFile
 
 {
 
-public add()
+public void add()
 {
 	
 }
