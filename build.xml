@@ -1,0 +1,63 @@
+<project name="FaceBookLogin" default="run" basedir=".">
+
+	 <presetdef name="javac">
+	    <javac includeantruntime="false" />
+	  </presetdef>
+	
+    <property name="classes.dir" value="bin" />
+    <property name="src.dir" value="src" />
+    <property name="report.dir" value="test-output" />
+    <property name="browser" value="C:\Users\SUNNY\workspace\FaceBookLogin\lib\chromedriver.exe"/>
+    <path id="libs">
+       
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${basedir}\${classes.dir}"/>
+    </path>
+
+    <target name="run">
+        <antcall target="init"/>
+        <antcall target="compile"/>
+        <antcall target="runTests"/>
+        <antcall target="Zip"/>
+    </target>
+    
+    <!-- Delete old data and create new directories -->
+    <target name="init" >
+        <echo>Initlizing...</echo>
+        <delete dir="${classes.dir}" />
+        <mkdir dir="${classes.dir}"/>
+ 		<delete dir="${report.dir}" />
+        <mkdir dir="${report.dir}"/> 
+    </target>
+
+    <!-- Complies the java files -->
+    <target name="compile">
+        <echo>Compiling...</echo>
+        <javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}"   classpathref="libs" />
+    </target>
+
+    <!-- Runs the file and generates Reportng report -->
+    <target name="runTests" description="Running tests" >
+        <echo>Running Tests...</echo>
+        <taskdef resource="testngtasks" classpathref="libs"/>
+        <testng classpathref="libs"
+        outputDir="${report.dir}"
+        haltOnfailure="false">
+        <xmlfileset dir="${basedir}" includes="testng.xml"/>
+        </testng>      
+    </target>
+    
+    <!-- zip to report.-->
+    
+    <target name="Zip">
+<zip destfile="${report.dir}/reportAmitoz.zip"
+       basedir="${report.dir}"/>
+  </target>
+  
+    
+    
+    
+    
+</project>
