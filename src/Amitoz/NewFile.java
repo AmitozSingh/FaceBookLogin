@@ -1,3 +1,7 @@
-public class JAVAReader()
+package Amitoz;
+
+public class NewFile
+
 {
+	
 }
